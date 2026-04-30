@@ -1,0 +1,16 @@
+/* Ant Design handles most of the styling. 
+   Custom tweaks can go here if needed. */
+
+.ant-layout-header {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+.ant-card {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.ant-table-wrapper {
+  background: transparent;
+}
