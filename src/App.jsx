@@ -26,18 +26,21 @@ import {
   SyncOutlined,
   CopyOutlined,
   BugOutlined,
-  ApiOutlined
+  ApiOutlined,
+  SunOutlined,
+  MoonOutlined
 } from '@ant-design/icons';
 
 const { Header, Content, Footer } = Layout;
 const { Title, Text } = Typography;
 const { Option } = Select;
 
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
 
 const App = () => {
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -212,17 +215,32 @@ const App = () => {
   return (
     <ConfigProvider
       theme={{
-        algorithm: theme.darkAlgorithm,
+        algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
         token: {
           colorPrimary: '#6366f1',
         },
       }}
     >
       <Layout style={{ minHeight: '100vh' }}>
-        <Header style={{ display: 'flex', alignItems: 'center', background: '#001529', padding: '0 50px' }}>
-          <Title level={3} style={{ color: 'white', margin: 0, display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <Header style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'space-between',
+          background: isDarkMode ? '#001529' : '#fff', 
+          padding: '0 50px',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.06)'
+        }}>
+          <Title level={3} style={{ color: isDarkMode ? 'white' : '#001529', margin: 0, display: 'flex', alignItems: 'center', gap: '10px' }}>
             <BugOutlined /> ErrorTracker Pro
           </Title>
+          <Button 
+            type="text" 
+            icon={isDarkMode ? <SunOutlined /> : <MoonOutlined />} 
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            style={{ color: isDarkMode ? 'white' : '#001529' }}
+          >
+            {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+          </Button>
         </Header>
 
         <Content style={{ padding: '24px 50px' }}>
